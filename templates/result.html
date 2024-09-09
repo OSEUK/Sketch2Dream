@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Result</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f8f9fa;
+        text-align: center;
+      }
+
+      h1 {
+        color: #007bff;
+        margin-bottom: 20px;
+      }
+
+      img {
+        width: 80%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      p {
+        font-size: 1.2em;
+        color: #333;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image Result</h1>
+
+    <div id="result"></div>
+
+    <script>
+        // URL에서 쿼리 파라미터 추출
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get('error');
+        const imageUrl = params.get('image');
+        const userText = params.get('text');
+
+        // 에러가 있으면 에러 메시지 출력
+        if (error) {
+            document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${decodeURIComponent(error)}</p>`;
+        } else {
+            // 이미지와 텍스트 출력
+            document.getElementById('result').innerHTML = `
+                <img src="${imageUrl}" alt="Generated Image">
+                <p>Text: ${decodeURIComponent(userText)}</p>
+            `;
+        }
+    </script>
+  </body>
+</html>

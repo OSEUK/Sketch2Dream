@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Feed</title>
+</head>
+<body>
+    <h1>Video Feed</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    <button onclick="saveCanvas()">Save Canvas</button>
+    <button onclick="loadCanvas()">Load Canvas</button>
+
+    <script>
+        function saveCanvas() {
+            fetch('/save_canvas').then(response => response.text()).then(data => {
+                alert(data);
+            });
+        }
+
+        function loadCanvas() {
+            const filename = prompt("Enter the filename to load:");
+            if (filename) {
+                window.location.href = '/load_canvas/' + filename;
+            }
+        }
+    </script>
+</body>
+</html>

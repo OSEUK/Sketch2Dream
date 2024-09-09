@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch2Dream</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* 타이틀 */
+        h1 {
+            font-size: 4rem;
+            color: #ff6f61;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 서브 타이틀 */
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        /* 메인 이미지 */
+        .main-image {
+            max-width: 50%;
+            height: auto;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* CTA 버튼 */
+        .cta-button {
+            padding: 1rem 2rem;
+            background-color: #00a8ff;
+            color: #fff;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        /* 버튼 hover 효과 */
+        .cta-button:hover {
+            background-color: #008ae6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 앱 타이틀 -->
+    <h1>Sketch2Dream</h1>
+
+    <!-- 서브 타이틀 -->
+    <p>스케치를 예술로, 꿈을 현실로</p>
+
+    <!-- 설명 이미지 -->
+    <img src="{{ url_for('static', filename='photos/turn-girl-stech-into-colorful-butterfly-drawing-with-fotor-ai-sketch-tool.webp') }}" alt="앱 설명 이미지" class="main-image">
+
+    <!-- CTA 버튼 -->
+    <button class="cta-button" onclick="startApp()">스케치 시작하기</button>
+
+    <script>
+        function startApp() {
+            // 여기에 앱 시작 시의 로직을 추가할 수 있습니다.
+            alert("앱이 곧 시작됩니다!");
+            window.location.href = "/canvas"; // 실제 앱 페이지로 이동
+        }
+    </script>
+</body>
+</html>
