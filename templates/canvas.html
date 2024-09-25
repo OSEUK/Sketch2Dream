@@ -3,71 +3,92 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paint Application</title>
+    <title>Sketch 2 Dream</title>
     <style>
-      /* 색상 팔레트 */
       :root {
         --primary-color: #007BFF;
         --secondary-color: #6C757D;
-        --background-color: #F8F9FA;
+        --background-color: #F0F4F8;
         --text-color: #333;
         --border-color: #E0E0E0;
         --white-color: #FFFFFF;
-        --modal-background-gradient: linear-gradient(135deg, #f9f9f9 0%, #d9e1f2 100%);  /* 모달의 배경 그라데이션 */
-        --accent-color: #FF6B6B;  /* 강조색 (닫기 버튼 등) */
+        --accent-color: #FF6B6B;
       }
 
-      /* 기본 스타일 */
       body {
-        font-family: 'Arial', sans-serif;
+        font-family: 'Poppins', sans-serif;
         margin: 0;
         padding: 20px;
         background-color: var(--background-color);
         color: var(--text-color);
-      }
-
-      h1 {
-        text-align: center;
-        color: var(--primary-color);
-        margin-bottom: 20px;
-        font-size: 2.5em;
-      }
-
-      /* 메인 레이아웃 */
-      .container {
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-wrap: wrap;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: var(--white-color);
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        text-align: center;
+        overflow: hidden; /* 이 부분을 수정해야 합니다 */
+        position: relative;
       }
 
-      /* 피드 컨테이너 */
-      .feed-container {
+      /* 배경 애니메이션 - 원을 더 투명하게 */
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(120deg, rgba(255, 111, 97, 0.2), rgba(0, 168, 255, 0.2)); /* 투명도 추가 */
+        clip-path: circle(30% at right 70%);
+        animation: moveBackground 6s infinite alternate;
+        z-index: -1;
+      }
+
+      @keyframes moveBackground {
+        0% {
+          clip-path: circle(30% at right 70%);
+        }
+        100% {
+          clip-path: circle(50% at left 30%);
+        }
+      }
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(90deg, #ff6f61, #ff9d41, #ffc600, #00a8ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 10px;
+      }
+
+      p.subtitle {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
         display: flex;
         justify-content: space-between;
         width: 100%;
+        background-color: var(--white-color);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
       }
 
       .feed {
         width: 48%;
-        background-color: var(--white-color);
         padding: 15px;
+        background-color: var(--white-color);
         border-radius: 10px;
         border: 1px solid var(--border-color);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        text-align: center;
-      }
-
-      h2 {
-        font-size: 1.8em;
-        color: var(--secondary-color);
-        margin-bottom: 15px;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
       }
 
       img {
@@ -75,19 +96,17 @@
         height: auto;
         display: block;
         border-radius: 8px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
       }
 
-      /* 텍스트 입력 스타일 */
       .text-container {
-        text-align: center;
         margin-top: 20px;
       }
 
       input[type="text"] {
         padding: 12px;
-        width: 70%;
-        font-size: 16px;
+        width: 50%;
+        font-size: 20px;
         border: 1px solid var(--border-color);
         border-radius: 6px;
         margin-bottom: 20px;
@@ -99,29 +118,105 @@
         outline: none;
       }
 
-      /* 버튼 스타일 */
       .button-container {
         text-align: center;
+        margin-top: 20px;
+        position: fixed;
+        bottom: 20px;
+        width: 100%;
       }
 
-      button {
-        padding: 12px 30px;
-        font-size: 16px;
-        color: var(--white-color);
-        background-color: var(--primary-color);
+      button.cta-button {
+        padding: 1rem 3rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: white;
+        background: linear-gradient(90deg, #ff416c, #ff4b2b);
         border: none;
-        border-radius: 6px;
+        border-radius: 50px;
         cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
+        position: relative;
+        box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+        overflow: hidden;
+        transition: all 0.4s ease-in-out;
+        animation: pulse 2s infinite;
       }
 
-      button:hover {
-        background-color: #0056b3;
+      .cta-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -50%;
+        width: 300%;
+        height: 300%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-50%) rotate(45deg);
+        transition: all 0.75s ease-in-out;
+      }
+
+      .cta-button:hover {
+        background: linear-gradient(90deg, #ff4b2b, #ff416c);
         transform: scale(1.05);
       }
 
-      /* 반응형 디자인 */
+      .cta-button:hover::before {
+        left: 150%;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+        }
+        50% {
+          transform: scale(1.1);
+          box-shadow: 0px 10px 20px rgba(255, 65, 108, 0.7);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+        }
+      }
+
+      .use-img {
+        width: 100%;
+        max-width: 1000px;
+        margin-bottom: 20px;
+      }
+
+      .input-image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 20px;
+      }
+
+      .input-container {
+        width: 100%;
+        text-align: center;
+      }
+
+      .image-container {
+        width: 100%;
+      }
+
+      .team-odee {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 2.0rem;
+        font-weight: 700;
+        color: black;
+        text-transform: uppercase;
+      }
+
       @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+
         .feed {
           width: 100%;
           margin-bottom: 20px;
@@ -131,150 +226,72 @@
           width: 90%;
         }
 
-        /* 모달 스타일 */
-      }
-      /* 모달 스타일 */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 100;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
-        justify-content: center;
-        align-items: center;
-      }
+        .team-odee {
+          font-size: 1rem;
+          bottom: 10px;
+          right: 10px;
+        }
 
-      .modal-content {
-        background: var(--modal-background-gradient);  /* 그라데이션 배경 */
-        padding: 30px;
-        border-radius: 15px;
-        width: 60%;
-        margin: 15% auto;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        transform: translateY(-50px);
-        animation: slideDown 0.4s ease-out forwards;
-        text-align: center;
+        .input-image-container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .input-container, .image-container {
+          width: 100%;
+        }
       }
-
-      .close {
-        color: var(--accent-color);  /* 강조된 빨간색 */
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-
-      .close:hover,
-      .close:focus {
-        color: #FF3B3B;  /* 닫기 버튼에 마우스를 올리면 더 진한 빨강 */
-        text-decoration: none;
-      }
-
-
     </style>
   </head>
   <body>
-    <h1>Paint Application</h1>
+    <h1>Sketch 2 Dream</h1>
+    <p class="subtitle">Painting Application</p>
 
-      <!-- 메인 페이지 내용 (동일) -->
-    <div class="button-container">
-      <button onclick="openModal()">사용방법</button> <!-- 모달을 여는 버튼 -->
-    </div>
-
-    <!-- 모달 구조 -->
-    <div id="usageModal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>사용 방법</h2>
-        <br>
-        <p>🎨 <strong>그림 그리기 모드:</strong> 검지 손가락만 피면 그림을 그릴 수 있습니다. ☝️</p>
-        <p>🧽 <strong>지우기 모드:</strong> 손가락을 모두 펼치면 그린 그림을 지울 수 있습니다. ✋</p>
-        <p>그림을 다 그렸다면, 텍스트 입력 창에 그림에 대한 설명을 해주세요.</p>
-        <p>완료되면 "Save Canvas" 버튼을 눌러 저장할 수 있습니다.</p>
-        <p>변환된 그림을 확인하면 끝 :)</p>
-        <br>
-        <!-- 하단 중앙 닫기 버튼 추가 -->
-        <div class="button-container">
-          <button class="close-btn" onclick="closeModal()">설명 닫기</button>
-        </div>
-      </div>
-    </div>
-    <!-- 메인 컨테이너 -->
     <div class="container">
-      <!-- 웹캠 피드 -->
-      <div class="feed-container">
-        <div class="feed">
-          <h2>Webcam Feed</h2>
-          <img src="{{ url_for('webcam_feed_route') }}" alt="Webcam Feed">
-        </div>
-        <!-- 캔버스 피드 -->
-        <div class="feed">
-          <h2>Canvas Feed</h2>
-          <img src="{{ url_for('canvas_feed_route') }}" id="canvasFeed" alt="Canvas Feed">
-          <canvas id="hiddenCanvas" style="display:none;"></canvas> <!-- 숨겨진 캔버스 -->
+      <div class="feed">
+        <h2>Webcam Feed</h2>
+        <img src="{{ url_for('webcam_feed_route') }}" alt="Webcam Feed">
+      </div>
+
+      <div class="feed">
+        <h2>Canvas Feed</h2>
+        <img src="{{ url_for('canvas_feed_route') }}" id="canvasFeed" alt="Canvas Feed">
+        <canvas id="hiddenCanvas" style="display:none;"></canvas>
+      </div>
+    </div>
+
+    <div class="input-image-container">
+      <div class="image-container">
+        <img src="{{ url_for('static', filename='photos/use.png') }}" alt="사용법 이미지" class="use-img">
+      </div>
+
+      <div class="input-container">
+        <div class="text-container">
+          <input type="text" id="userText" placeholder="어떤 그림인지 입력하세요">
         </div>
       </div>
     </div>
 
-    <!-- 텍스트 입력란 -->
-    <div class="text-container">
-      <input type="text" id="userText" placeholder="Enter some text">
-    </div>
-
-    <!-- 버튼 컨테이너 -->
     <div class="button-container">
-      <button onclick="saveCanvas()">Save Canvas</button>
+      <button class="cta-button" onclick="saveCanvas()">Save Canvas</button>
     </div>
 
-    <!-- 자바스크립트 코드 -->
+    <div class="team-odee">Team ODEE</div>
+
     <script>
-      // 모달 열기
-      function openModal() {
-      const modal = document.getElementById('usageModal');
-      modal.style.display = 'flex'; // flex로 중앙 정렬
-      setTimeout(() => {
-        modal.style.opacity = '1'; // 서서히 나타나는 효과
-      }, 10);
-    }
-
-    // 모달 닫기
-    function closeModal() {
-      const modal = document.getElementById('usageModal');
-      modal.style.opacity = '0'; // 서서히 사라지는 효과
-      setTimeout(() => {
-        modal.style.display = 'none'; // 모달 숨기기
-      }, 300);
-    }
-
-    // 바깥 클릭 시 모달 닫기
-    window.onclick = function(event) {
-      const modal = document.getElementById('usageModal');
-      if (event.target == modal) {
-        closeModal();
-      }
-    }
       function saveCanvas() {
         const userText = document.getElementById('userText').value;
         const imgElement = document.getElementById('canvasFeed');
         const canvas = document.getElementById('hiddenCanvas');
         const context = canvas.getContext('2d');
 
-        // 캔버스 크기를 이미지 크기와 일치시킴
         canvas.width = imgElement.width;
         canvas.height = imgElement.height;
 
-        // 이미지 데이터를 캔버스에 그리기
         context.drawImage(imgElement, 0, 0, imgElement.width, imgElement.height);
 
-        // 캔버스를 Base64 이미지로 변환
         const imageData = canvas.toDataURL('image/jpeg');
 
-        // 텍스트와 이미지를 함께 서버로 전송
-        // 코랩에서 서버를 실행한 후, 보여지는 url을 복사해야 함. process_image 앞에.
         fetch('https://afa6-34-87-70-4.ngrok-free.app/process_image', {
           method: 'POST',
           headers: {
@@ -282,18 +299,16 @@
           },
           body: JSON.stringify({
             text: userText,
-            image: imageData  // Base64로 인코딩된 이미지
+            image: imageData
           })
         })
         .then(response => response.json())
         .then(data => {
             if (data.error) {
-              // 에러가 발생한 경우 처리
               window.location.href = `/result?error=${encodeURIComponent(data.error)}`;
             } else {
               const imageData = data.image_data;
               const imageUrl = `data:image/png;base64,${imageData}`;
-              // 성공적으로 처리된 경우 결과 페이지로 이동
               window.location.href = `/result?image=${encodeURIComponent(imageUrl)}&text=${encodeURIComponent(userText)}`;
             }
         })

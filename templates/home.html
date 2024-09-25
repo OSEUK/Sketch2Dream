@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sketch2Dream</title>
+    <title>Sketch 2 Dream</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* 기본 스타일 */
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #f0f4f8;
             color: #333;
             display: flex;
@@ -16,70 +17,260 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 배경 애니메이션 - 원을 더 투명하게 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255, 111, 97, 0.2), rgba(0, 168, 255, 0.2)); /* 투명도 추가 */
+            clip-path: circle(30% at right 70%);
+            animation: moveBackground 6s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes moveBackground {
+            0% {
+                clip-path: circle(30% at right 70%);
+            }
+            100% {
+                clip-path: circle(50% at left 30%);
+            }
         }
 
         /* 타이틀 */
         h1 {
-            font-size: 4rem;
-            color: #ff6f61;
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ff6f61, #ff9d41, #ffc600, #00a8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            animation: fadeInDown 1s ease-in-out;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* 서브 타이틀 */
         p {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 2rem;
-            color: #666;
+            color: #555;
+            font-weight: 600;
+            animation: fadeInUp 1.2s ease-in-out;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
         }
 
         /* 메인 이미지 */
         .main-image {
-            max-width: 50%;
+            max-width: 60%;
             height: auto;
             margin-bottom: 2rem;
             border-radius: 15px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .main-image:hover {
+            transform: scale(1.08);
         }
 
         /* CTA 버튼 */
         .cta-button {
-            padding: 1rem 2rem;
-            background-color: #00a8ff;
-            color: #fff;
-            font-size: 1.2rem;
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            position: relative;
+            box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+            transition: all 0.4s ease-in-out;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(90deg, #ff4b2b, #ff416c);
+            transform: scale(1.05);
+        }
+
+        /* 박동 애니메이션 */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0px 10px 20px rgba(255, 65, 108, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+            }
+        }
+
+        /* Team ODEE */
+        .team-odee {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2.0rem;
+            font-weight: 700;
+            color: black;
             text-transform: uppercase;
         }
 
-        /* 버튼 hover 효과 */
-        .cta-button:hover {
-            background-color: #008ae6;
+        /* How to Use 버튼 */
+        .how-to-use {
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            background: linear-gradient(90deg, #00a8ff, #0077cc);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 1rem;
         }
+
+        /* Modal 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .close-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #ff416c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            p {
+                font-size: 1.2rem;
+            }
+            .main-image {
+                max-width: 100%;
+            }
+            .cta-button {
+                font-size: 1.2rem;
+                padding: 0.8rem 2.5rem;
+            }
+            .how-to-use {
+                font-size: 1.2rem;
+                padding: 0.8rem 2.5rem;
+            }
+            .team-odee {
+                font-size: 1rem;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <!-- 앱 타이틀 -->
-    <h1>Sketch2Dream</h1>
+    <h1>Sketch 2 Dream</h1>
 
     <!-- 서브 타이틀 -->
-    <p>스케치를 예술로, 꿈을 현실로</p>
-
+    <p>"스케치를 예술로, 꿈을 현실로 ☁️"</p>
+를
     <!-- 설명 이미지 -->
     <img src="{{ url_for('static', filename='photos/turn-girl-stech-into-colorful-butterfly-drawing-with-fotor-ai-sketch-tool.webp') }}" alt="앱 설명 이미지" class="main-image">
 
     <!-- CTA 버튼 -->
     <button class="cta-button" onclick="startApp()">스케치 시작하기</button>
 
+    <!-- How to Use 버튼 -->
+    <button class="how-to-use" onclick="openModal()">How to Use</button>
+
+    <!-- Modal -->
+    <div id="howToUseModal" class="modal">
+        <div class="modal-content">
+            <h2>How to Use</h2>
+            <br>
+            <p>1) 📷 카메라를 보고 손가락을 이용해 그림을 그려주세요.</p>
+            <p>2) 👆 그림을 다 그렸다면, 텍스트 입력 창에 그림에 대한 설명을 입력 해주세요.</p>
+            <p>3) ✔️ 완료되면 "Save Canvas" 버튼을 눌러 저장할 수 있습니다.</p>
+            <p>4) 🕶️ 이제 그림이 실제 이미지로 변환됩니다.</p>
+            <br>
+            <h4>당신의 꿈을 실현시키세요.</h4>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Team ODEE 표시 -->
+    <div class="team-odee">Team ODEE</div>
+
     <script>
         function startApp() {
-            // 여기에 앱 시작 시의 로직을 추가할 수 있습니다.
             alert("앱이 곧 시작됩니다!");
             window.location.href = "/canvas"; // 실제 앱 페이지로 이동
         }
+
+        function openModal() {
+            document.getElementById("howToUseModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("howToUseModal").style.display = "none";
+        }
+
+        // 모달을 닫는 기능을 ESC 키로 추가
+        window.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
