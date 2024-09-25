@@ -24,7 +24,7 @@ def canvas():
 def webcam_feed_route():
     return Response(virtualMouse.webcam_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# /canvas에서 그림이 그려지는 canvas를 받아옴ㅁ
+# /canvas에서 그림이 그려지는 canvas를 받아옴
 @app.route('/canvas_feed')
 def canvas_feed_route():
     return Response(virtualMouse.canvas_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
