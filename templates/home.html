@@ -164,8 +164,12 @@
             background-color: white;
             padding: 2rem;
             border-radius: 10px;
-            max-width: 500px;
+            width: 80%; /* 너비를 전체 화면의 80%로 조정 */
+            max-width: 800px; /* 최대 너비를 800px로 제한 */
+            height: 70%; /* 높이를 전체 화면의 70%로 조정 */
+            max-height: 600px; /* 최대 높이를 600px로 제한 */
             text-align: left;
+            overflow-y: auto; /* 높이를 초과하는 내용을 스크롤로 표시 */
         }
 
         .modal-content h2 {
@@ -236,14 +240,14 @@
     <!-- Modal -->
     <div id="howToUseModal" class="modal">
         <div class="modal-content">
-            <h2>How to Use</h2>
+            <h1>How to Use</h1>
             <br>
             <p>1) 📷 카메라를 보고 손가락을 이용해 그림을 그려주세요.</p>
             <p>2) 👆 그림을 다 그렸다면, 텍스트 입력 창에 그림에 대한 설명을 입력 해주세요.</p>
             <p>3) ✔️ 완료되면 "Save Canvas" 버튼을 눌러 저장할 수 있습니다.</p>
             <p>4) 🕶️ 이제 그림이 실제 이미지로 변환됩니다.</p>
             <br>
-            <h4>당신의 꿈을 실현시키세요.</h4>
+            <h2>당신의 꿈을 실현시키세요.</h2>
             <button class="close-btn" onclick="closeModal()">Close</button>
         </div>
     </div>
