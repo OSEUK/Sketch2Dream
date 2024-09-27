@@ -18,8 +18,11 @@ def save_canvas():
 # 손가락 위치를 저장할 전역 변수
 finger_position = None  # 손가락 끝 위치를 저장할 전역 변수 (x, y 좌표)
 
+# 전체 지우기 버튼 상태를 저장할 변수
+clear_button_pressed = False
+
 def webcam_feed():
-    global canvas, xp, yp, col, finger_position
+    global canvas, xp, yp, col, finger_position, clear_button_pressed
     cap = cv2.VideoCapture(0)
     cap.set(3, 640)  # 너비 설정
     cap.set(4, 480)  # 높이 설정
@@ -41,6 +44,9 @@ def webcam_feed():
             continue
         frame = cv2.flip(frame, 1)
 
+        # 프레임 크기 조정 (웹캠 인식 범위 확대)
+        frame = cv2.resize(frame, (640, 480))
+
         img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         results = hands.process(img)
         lanmark = []
@@ -59,11 +65,13 @@ def webcam_feed():
 
             x2, y2 = lanmark[12][1], lanmark[12][2]  # 중지손가락 끝 좌표
 
-            # 손을 펼치면 캔버스를 초기화
-            if is_canvas_erase_mode(lanmark):
+            # 전체 지우기 버튼 처리
+            if is_clear_button_pressed(lanmark):
+                clear_button_pressed = True
+            elif clear_button_pressed and not is_clear_button_pressed(lanmark):
                 canvas = np.ones((480, 640, 3), np.uint8) * 255
                 xp, yp = 0, 0
-                continue
+                clear_button_pressed = False
 
             # 부분 지우기 모드
             elif is_erase_mode(lanmark):
@@ -82,6 +90,10 @@ def webcam_feed():
             else:
                 # 그리기 모드가 아닌 경우, xp, yp 초기화
                 xp, yp = 0, 0
+
+        # 전체 지우기 버튼 표시
+        cv2.rectangle(frame, (10, 10), (100, 50), (0, 255, 0), 2)
+        cv2.putText(frame, "Clear", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
 
         # 프레임 인코딩
         ret, buffer = cv2.imencode('.jpg', frame)
@@ -105,14 +117,10 @@ def canvas_feed():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + canvas_frame + b'\r\n')
 
-def is_canvas_erase_mode(lanmark):
-    # 모든 손가락을 펼쳤을 때 캔버스 지우기 모드
-    if (lanmark[8][2] < lanmark[6][2] and
-        lanmark[12][2] < lanmark[10][2] and
-        lanmark[16][2] < lanmark[14][2] and
-        lanmark[20][2] < lanmark[18][2]):
-        return True
-    return False
+def is_clear_button_pressed(lanmark):
+    # 검지 손가락이 전체 지우기 버튼 영역 안에 있는지 확인
+    x, y = lanmark[8][1], lanmark[8][2]
+    return 10 <= x <= 100 and 10 <= y <= 50
 
 def is_draw_mode(lanmark):
     # 검지 손가락만 펼쳐졌는지 확인
