@@ -160,7 +160,7 @@
     <h1>Sketch 2 Dream</h1>
 
     <!-- Dream Result 제목 -->
-    <h2>Dream Result ☁️</h2>
+    <h2>결과 이미지</h2>
 
     <div id="result"></div>
 
@@ -168,19 +168,21 @@
     <div class="team-odee">Team ODEE</div>
 
     <script>
-      const params = new URLSearchParams(window.location.search);
-      const error = params.get('error');
-      const imageUrl = params.get('image');
-      const userText = params.get('text');
+        // Flask에서 받은 데이터, Jinja 템플릿을 통해 전달
+        const imageUrl = "{{ image_url }}";  // Flask에서 전달된 이미지 URL
+        const userText = "{{ text }}";  // Flask에서 전달된 텍스트
 
-      if (error) {
-        document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${decodeURIComponent(error)}</p>`;
-      } else {
-        document.getElementById('result').innerHTML = `
-          <img src="${imageUrl}" alt="Generated Image">
-          <p>Text: ${decodeURIComponent(userText)}</p>
-        `;
-      }
+        // 오류가 있다면 처리 (만약 Flask에서 오류 메시지가 전달된다면)
+        const error = "{{ error }}";  // 오류 메시지가 있을 경우 처리
+
+        if (error) {
+          document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${decodeURIComponent(error)}</p>`;
+        } else {
+          document.getElementById('result').innerHTML = `
+            <img src="${imageUrl}" alt="Generated Image" style="max-width: 100%; height: auto;">
+            <p>Text: ${decodeURIComponent(userText)}</p>
+          `;
+        }
     </script>
   </body>
 </html>

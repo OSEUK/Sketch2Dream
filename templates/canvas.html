@@ -1,319 +1,374 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sketch 2 Dream</title>
+    <title>Sketch 2 Dream - Canvas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --primary-color: #007BFF;
-        --secondary-color: #6C757D;
-        --background-color: #F0F4F8;
-        --text-color: #333;
-        --border-color: #E0E0E0;
-        --white-color: #FFFFFF;
-        --accent-color: #FF6B6B;
-      }
-
-      body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: var(--background-color);
-        color: var(--text-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        overflow: hidden; /* 이 부분을 수정해야 합니다 */
-        position: relative;
-      }
-
-      /* 배경 애니메이션 - 원을 더 투명하게 */
-      body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(120deg, rgba(255, 111, 97, 0.2), rgba(0, 168, 255, 0.2)); /* 투명도 추가 */
-        clip-path: circle(30% at right 70%);
-        animation: moveBackground 6s infinite alternate;
-        z-index: -1;
-      }
-
-      @keyframes moveBackground {
-        0% {
-          clip-path: circle(30% at right 70%);
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #6C757D;
+            --background-color: #F8FAFC;
+            --text-color: #333;
+            --border-color: #E0E0E0;
+            --white-color: #FFFFFF;
+            --accent-color: #FF6B6B;
         }
-        100% {
-          clip-path: circle(50% at left 30%);
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-      }
 
-      h1 {
-        font-size: 4rem;
-        font-weight: 900;
-        background: linear-gradient(90deg, #ff6f61, #ff9d41, #ffc600, #00a8ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-transform: uppercase;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-        margin-bottom: 10px;
-      }
-
-      p.subtitle {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: var(--secondary-color);
-        margin-bottom: 20px;
-      }
-
-      .container {
-        max-width: 1200px;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        background-color: var(--white-color);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .feed {
-        width: 48%;
-        padding: 15px;
-        background-color: var(--white-color);
-        border-radius: 10px;
-        border: 1px solid var(--border-color);
-        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 8px;
-        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .text-container {
-        margin-top: 20px;
-      }
-
-      input[type="text"] {
-        padding: 12px;
-        width: 50%;
-        font-size: 20px;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        margin-bottom: 20px;
-        transition: border-color 0.3s;
-      }
-
-      input[type="text"]:focus {
-        border-color: var(--primary-color);
-        outline: none;
-      }
-
-      .button-container {
-        text-align: center;
-        margin-top: 20px;
-        position: fixed;
-        bottom: 20px;
-        width: 100%;
-      }
-
-      button.cta-button {
-        padding: 1rem 3rem;
-        font-size: 1.5rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: white;
-        background: linear-gradient(90deg, #ff416c, #ff4b2b);
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        position: relative;
-        box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
-        overflow: hidden;
-        transition: all 0.4s ease-in-out;
-        animation: pulse 2s infinite;
-      }
-
-      .cta-button::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: -50%;
-        width: 300%;
-        height: 300%;
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-50%) rotate(45deg);
-        transition: all 0.75s ease-in-out;
-      }
-
-      .cta-button:hover {
-        background: linear-gradient(90deg, #ff4b2b, #ff416c);
-        transform: scale(1.05);
-      }
-
-      .cta-button:hover::before {
-        left: 150%;
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-          box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
-        }
-        50% {
-          transform: scale(1.1);
-          box-shadow: 0px 10px 20px rgba(255, 65, 108, 0.7);
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
-        }
-      }
-
-      .use-img {
-        width: 100%;
-        max-width: 1000px;
-        margin-bottom: 20px;
-      }
-
-      .input-image-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 20px;
-      }
-
-      .input-container {
-        width: 100%;
-        text-align: center;
-      }
-
-      .image-container {
-        width: 100%;
-      }
-
-      .team-odee {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        font-size: 2.0rem;
-        font-weight: 700;
-        color: black;
-        text-transform: uppercase;
-      }
-
-      @media (max-width: 768px) {
         .container {
-          flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff6f61, #ff9d41, #ffc600, #00a8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .feed-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
         }
 
         .feed {
-          width: 100%;
-          margin-bottom: 20px;
+            width: 48%;
+            background-color: var(--white-color);
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .feed:hover {
+            transform: scale(1.02);
+        }
+
+        .feed h2 {
+            padding: 1rem;
+            margin: 0;
+            background-color: #ff6f61;
+            color: var(--white-color);
+        }
+
+        .feed img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .input-container {
+            margin-bottom: 2rem;
+            text-align: center;
         }
 
         input[type="text"] {
-          width: 90%;
+            width: 100%;
+            max-width: 500px;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .team-odee {
-          font-size: 1rem;
-          bottom: 10px;
-          right: 10px;
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            outline: none;
         }
 
-        .input-image-container {
-          flex-direction: column;
-          align-items: center;
+        .button-container {
+            text-align: center;
         }
 
-        .input-container, .image-container {
-          width: 100%;
+        .cta-button {
+            padding: 1rem 3rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
         }
-      }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            text-align: left;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff416c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .close-btn:hover {
+            background-color: #ff1f4b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            font-weight: 600;
+            margin-top: auto;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .feed-container {
+                flex-direction: column;
+            }
+
+            .feed {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.75rem 2rem;
+                font-size: 1rem;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <h1>Sketch 2 Dream</h1>
-    <p class="subtitle">Painting Application</p>
-
+</head>
+<body>
     <div class="container">
-      <div class="feed">
-        <h2>Webcam Feed</h2>
-        <img src="{{ url_for('webcam_feed_route') }}" alt="Webcam Feed">
-      </div>
+        <h1>Sketch 2 Dream</h1>
 
-      <div class="feed">
-        <h2>Canvas Feed</h2>
-        <img src="{{ url_for('canvas_feed_route') }}" id="canvasFeed" alt="Canvas Feed">
-        <canvas id="hiddenCanvas" style="display:none;"></canvas>
-      </div>
-    </div>
+        <div class="feed-container">
+            <div class="feed">
+                <h2>실시간 카메라</h2>
+                <img src="{{ url_for('webcam_feed_route') }}" alt="실시간 카메라" loading="lazy">
+            </div>
 
-    <div class="input-image-container">
-      <div class="image-container">
-        <img src="{{ url_for('static', filename='photos/use.png') }}" alt="사용법 이미지" class="use-img">
-      </div>
-
-      <div class="input-container">
-        <div class="text-container">
-          <input type="text" id="userText" placeholder="어떤 그림인지 입력하세요">
+            <div class="feed">
+                <h2>스케치 캔버스</h2>
+                <img src="{{ url_for('canvas_feed_route') }}" id="canvasFeed" alt="스케치 캔버스" loading="lazy">
+                <canvas id="hiddenCanvas" style="display:none;"></canvas>
+            </div>
         </div>
-      </div>
+
+        <div class="input-container">
+            <input type="text" id="userText" placeholder="어떤 그림인지 입력하세요">
+        </div>
+
+        <div class="button-container">
+            <button class="cta-button" onclick="saveCanvas()">Save Canvas</button>
+        </div>
     </div>
 
-    <div class="button-container">
-      <button class="cta-button" onclick="saveCanvas()">Save Canvas</button>
+    <div id="howToUseModal" class="modal">
+        <div class="modal-content">
+            <h2>사용 방법</h2>
+            <ol>
+                <li>카메라를 보고 손가락을 이용해 그림을 그려주세요.</li>
+                <li>그림을 다 그렸다면, 텍스트 입력 창에 그림에 대한 설명을 입력해주세요.</li>
+                <li>완료되면 "Save Canvas" 버튼을 눌러 저장할 수 있습니다.</li>
+                <li>이제 그림이 실제 이미지로 변환됩니다.</li>
+            </ol>
+            <h3>당신의 꿈을 실현시키세요.</h3>
+            <button class="close-btn" onclick="closeModal()">닫기</button>
+        </div>
     </div>
 
-    <div class="team-odee">Team ODEE</div>
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">생성 중입니다...</div>
+    </div>
+
+
+    <footer>Team ODEE</footer>
 
     <script>
-      function saveCanvas() {
-        const userText = document.getElementById('userText').value;
-        const imgElement = document.getElementById('canvasFeed');
-        const canvas = document.getElementById('hiddenCanvas');
-        const context = canvas.getContext('2d');
+        const BACKEND_URL = 'https://d844-34-124-218-54.ngrok-free.app';
 
-        canvas.width = imgElement.width;
-        canvas.height = imgElement.height;
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
 
-        context.drawImage(imgElement, 0, 0, imgElement.width, imgElement.height);
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
 
-        const imageData = canvas.toDataURL('image/jpeg');
+        async function saveCanvas() {
+            const userText = document.getElementById('userText').value;
+            const imgElement = document.getElementById('canvasFeed');
+            const canvas = document.getElementById('hiddenCanvas');
+            const context = canvas.getContext('2d');
 
-        fetch('https://afa6-34-87-70-4.ngrok-free.app/process_image', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            text: userText,
-            image: imageData
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-              window.location.href = `/result?error=${encodeURIComponent(data.error)}`;
-            } else {
-              const imageData = data.image_data;
-              const imageUrl = `data:image/png;base64,${imageData}`;
-              window.location.href = `/result?image=${encodeURIComponent(imageUrl)}&text=${encodeURIComponent(userText)}`;
+            canvas.width = imgElement.width;
+            canvas.height = imgElement.height;
+
+            context.drawImage(imgElement, 0, 0, imgElement.width, imgElement.height);
+
+            try {
+                showLoading(); // 로딩 시작
+
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
+                const formData = new FormData();
+                formData.append('text', userText);
+                formData.append('image', blob, 'canvas_image.jpg');
+
+                const response = await fetch(`${BACKEND_URL}/process_image`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // 결과 페이지로 이동
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/result';
+
+                const imageInput = document.createElement('input');
+                imageInput.type = 'hidden';
+                imageInput.name = 'image_url';
+                imageInput.value = data.image_url;
+                form.appendChild(imageInput);
+
+                const textInput = document.createElement('input');
+                textInput.type = 'hidden';
+                textInput.name = 'text';
+                textInput.value = userText;
+                form.appendChild(textInput);
+
+                document.body.appendChild(form);
+                form.submit();
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('이미지 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+            } finally {
+                hideLoading(); // 로딩 종료
             }
-        })
-        .catch(error => console.error('Error:', error));
-      }
+        }
+
+        function openModal() {
+            document.getElementById("howToUseModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("howToUseModal").style.display = "none";
+        }
+
+        // 키보드 단축키
+        window.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            } else if (event.ctrlKey && event.key === 's') {
+                event.preventDefault();
+                saveCanvas();
+            }
+        });
+
+        // 페이지 로드 시 사용 방법 모달 표시
+        window.addEventListener('load', function() {
+            openModal();
+        });
     </script>
-  </body>
+</body>
 </html>
