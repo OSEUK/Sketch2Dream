@@ -30,9 +30,14 @@ def canvas_feed_route():
     return Response(virtualMouse.canvas_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # 변환 후 결과 페이지
-@app.route('/result')
+@app.route('/result', methods=['POST'])
 def result_page():
-    return render_template('result.html')
+    # POST 요청으로 받은 이미지 URL과 텍스트를 처리
+    image_url = request.form.get('image_url')  # JavaScript에서 전송한 이미지 URL 받기
+    user_text = request.form.get('text')  # 사용자가 입력한 텍스트 받기
+
+    # 템플릿으로 이미지 URL과 텍스트 전달
+    return render_template('result.html', image_url=image_url, text=user_text)
 
 if __name__ == '__main__':
     app.run(debug=True)
