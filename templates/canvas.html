@@ -4,124 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sketch 2 Dream - Canvas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #007BFF;
-            --secondary-color: #6C757D;
-            --background-color: #F8FAFC;
-            --text-color: #333;
-            --border-color: #E0E0E0;
-            --white-color: #FFFFFF;
-            --accent-color: #FF6B6B;
+            --peach-fuzz: #FFBE98;
+            --black: #000000;
+            --white: #FFFFFF;
         }
-
-        body {
-            font-family: 'Poppins', sans-serif;
+        body, html {
             margin: 0;
-            padding: 20px;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--peach-fuzz);
+            color: var(--black);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
         }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #ff6f61, #ff9d41, #ffc600, #00a8ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+        .logo-container {
+            display: flex;
+            align-items: center;
         }
-
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+        nav ul li a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--black);
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 50px;
+            position: relative;
+        }
         .feed-container {
             display: flex;
             justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
             margin-bottom: 2rem;
         }
-
         .feed {
             width: 48%;
-            background-color: var(--white-color);
+            background-color: var(--white);
             border-radius: 10px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease;
         }
-
         .feed:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
-
-        .feed h2 {
-            padding: 1rem;
-            margin: 0;
-            background-color: #ff6f61;
-            color: var(--white-color);
-        }
-
         .feed img {
             width: 100%;
             height: auto;
             display: block;
         }
-
         .input-container {
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        input[type="text"] {
             width: 100%;
             max-width: 500px;
+            margin-bottom: 2rem;
+        }
+        input[type="text"] {
+            width: 100%;
             padding: 0.75rem;
             font-size: 1rem;
-            border: 2px solid var(--border-color);
+            border: 2px solid var(--black);
             border-radius: 6px;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-
         input[type="text"]:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            border-color: var(--black);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.25);
             outline: none;
         }
-
-        .button-container {
-            text-align: center;
-        }
-
         .cta-button {
             padding: 1rem 3rem;
             font-size: 1.25rem;
             font-weight: 700;
             text-transform: uppercase;
-            color: white;
-            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            color: var(--white);
+            background-color: var(--black);
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
-            box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
         }
-
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.4);
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -134,9 +137,8 @@
             justify-content: center;
             align-items: center;
         }
-
         .modal-content {
-            background-color: white;
+            background-color: var(--white);
             padding: 2rem;
             border-radius: 10px;
             width: 90%;
@@ -147,31 +149,21 @@
             position: relative;
             box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
         }
-
         .close-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #ff416c;
-            color: white;
+            background-color: var(--black);
+            color: var(--white);
             border: none;
             border-radius: 5px;
             cursor: pointer;
             padding: 0.5rem 1rem;
             transition: all 0.3s ease-in-out;
         }
-
         .close-btn:hover {
-            background-color: #ff1f4b;
+            background-color: #333;
         }
-
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            font-weight: 600;
-            margin-top: auto;
-        }
-
         .loading-overlay {
             display: none;
             position: fixed;
@@ -184,45 +176,31 @@
             justify-content: center;
             align-items: center;
         }
-
         .loading-spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
+            border: 5px solid var(--white);
+            border-top: 5px solid var(--black);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-
         .loading-text {
-            color: white;
+            color: var(--white);
             font-size: 1.2rem;
             font-weight: bold;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
+        @media (max-width: 1024px) {
             .feed-container {
                 flex-direction: column;
             }
-
             .feed {
                 width: 100%;
                 margin-bottom: 1rem;
             }
-
             .cta-button {
                 padding: 0.75rem 2rem;
                 font-size: 1rem;
@@ -231,17 +209,24 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Sketch 2 Dream</h1>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='photos/logo.png') }}" alt="Sketch2Dream Logo" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="openModal()">How To Use</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <main>
         <div class="feed-container">
             <div class="feed">
-                <h2>실시간 카메라</h2>
                 <img src="{{ url_for('webcam_feed_route') }}" alt="실시간 카메라" loading="lazy">
             </div>
 
             <div class="feed">
-                <h2>스케치 캔버스</h2>
                 <img src="{{ url_for('canvas_feed_route') }}" id="canvasFeed" alt="스케치 캔버스" loading="lazy">
                 <canvas id="hiddenCanvas" style="display:none;"></canvas>
             </div>
@@ -251,10 +236,8 @@
             <input type="text" id="userText" placeholder="어떤 그림인지 입력하세요">
         </div>
 
-        <div class="button-container">
-            <button class="cta-button" onclick="saveCanvas()">Save Canvas</button>
-        </div>
-    </div>
+        <button class="cta-button" onclick="saveCanvas()">Save Canvas</button>
+    </main>
 
     <div id="howToUseModal" class="modal">
         <div class="modal-content">
@@ -275,11 +258,8 @@
         <div class="loading-text">생성 중입니다...</div>
     </div>
 
-
-    <footer>Team ODEE</footer>
-
     <script>
-        const BACKEND_URL = 'https://d844-34-124-218-54.ngrok-free.app';
+        const BACKEND_URL = 'https://f495-34-147-64-18.ngrok-free.app';
 
         function showLoading() {
             document.getElementById('loadingOverlay').style.display = 'flex';
@@ -370,5 +350,6 @@
             openModal();
         });
     </script>
+
 </body>
 </html>
