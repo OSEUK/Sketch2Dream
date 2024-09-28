@@ -39,6 +39,9 @@
             display: flex;
             list-style-type: none;
         }
+        nav ul li {
+            margin-left: 20px;
+        }
         nav ul li a {
             color: var(--black);
             text-decoration: none;
@@ -69,7 +72,7 @@
         }
         .content {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             width: 100%;
             max-width: 1200px;
@@ -162,10 +165,9 @@
         .team-credits {
             position: absolute;
             bottom: 20px;
-            left: 0;
-            right: 0;
+            left: 50px;
             font-size: 0.8rem;
-            text-align: center;
+            text-align: left;
             color: var(--black);
         }
         .modal {
@@ -254,6 +256,8 @@
                 position: static;
                 margin-top: 20px;
                 padding-bottom: 20px;
+                padding-left: 20px;
+                text-align: left;
             }
         }
     </style>
@@ -261,21 +265,24 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="{{ url_for('static', filename='photos/logo.png') }}" alt="Sketch2Dream Logo" class="logo">
+            <a href="/">
+                <img src="{{ url_for('static', filename='photos/logo.png') }}" alt="Sketch2Dream Logo" class="logo">
+            </a>
         </div>
         <nav>
             <ul>
-                <li><a onclick="openModal()">How To Use</a></li>
+                <li><a onclick="openProjectModal()">About It?</a></li>
+                <li><a onclick="openHowToUseModal()">How To Use</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <div class="controls">
-            <button class="control-button prev">&lt;</button>
-            <button class="control-button next">&gt;</button>
-            <button class="control-button shuffle">⇄</button>
-        </div>
         <div class="content">
+            <div class="controls">
+                <button class="control-button prev">&lt;</button>
+                <button class="control-button next">&gt;</button>
+                <button class="control-button shuffle">⇄</button>
+            </div>
             <div class="text-content">
                 <h2>SKETCH TO DREAM</h2>
                 <h1>당신의 스케치,<br>우리의 기술로<br>현실이 됩니다</h1>
@@ -294,6 +301,17 @@
         </div>
     </main>
 
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <h2>What's the Project?</h2>
+            <p>Sketch2Dream은 사용자의 스케치를 AI 기술을 통해 실제 이미지로 변환하는 혁신적인 프로젝트입니다.
+            우리의 목표는 창의성의 경계를 넓히고, 상상을 현실로 만드는 것입니다.</p>
+            <p>이 프로젝트는 컴퓨터 비전, 머신 러닝, 그리고 사용자 경험 디자인의 최신 기술을 결합하여
+            사용자 친화적이면서도 강력한 도구를 제공합니다.</p>
+            <button class="close-btn" onclick="closeModal('projectModal')">닫기</button>
+        </div>
+    </div>
+
     <div id="howToUseModal" class="modal">
         <div class="modal-content">
             <h2>사용 방법</h2>
@@ -304,7 +322,7 @@
                 <li>이제 그림이 실제 이미지로 변환됩니다.</li>
             </ol>
             <h3>당신의 꿈을 실현시키세요.</h3>
-            <button class="close-btn" onclick="closeModal()">닫기</button>
+            <button class="close-btn" onclick="closeModal('howToUseModal')">닫기</button>
         </div>
     </div>
 
@@ -346,18 +364,23 @@
         showImage(currentIndex);
         setInterval(nextImage, 5000);
 
-        function openModal() {
+        function openProjectModal() {
+            document.getElementById("projectModal").style.display = "flex";
+        }
+
+        function openHowToUseModal() {
             document.getElementById("howToUseModal").style.display = "flex";
         }
 
-        function closeModal() {
-            document.getElementById("howToUseModal").style.display = "none";
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
         }
 
         // 키보드 단축키
         window.addEventListener("keydown", function(event) {
             if (event.key === "Escape") {
-                closeModal();
+                closeModal('howToUseModal');
+                closeModal('projectModal');
             }
         });
     </script>
