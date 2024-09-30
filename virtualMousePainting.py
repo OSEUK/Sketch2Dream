@@ -92,8 +92,8 @@ def webcam_feed():
                 xp, yp = 0, 0
 
         # 전체 지우기 버튼 표시
-        cv2.rectangle(frame, (10, 10), (100, 50), (0, 255, 0), 2)
-        cv2.putText(frame, "Clear", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+        cv2.rectangle(frame, (10, 10), (100, 50), (88, 198, 255), 2)
+        cv2.putText(frame, "Clear", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (88, 198, 255), 2)
 
         # 프레임 인코딩
         ret, buffer = cv2.imencode('.jpg', frame)

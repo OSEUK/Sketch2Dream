@@ -7,7 +7,6 @@ import numpy as np
 canvas = np.zeros((480, 640, 3), np.uint8)
 
 app = Flask(__name__)
-COLAB_SERVER_URL = 'http://<ngrok-url>/process_image'
 
 # welcome page
 @app.route('/')

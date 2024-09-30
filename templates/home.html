@@ -1,157 +1,175 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sketch 2 Dream</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <title>Sketch2Dream</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --peach-fuzz: #FFBE98;
+            --black: #000000;
+            --white: #FFFFFF;
+        }
+        body, html {
             margin: 0;
+            padding: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
-            display: flex;
+            background-color: var(--peach-fuzz);
+            color: var(--black);
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .container {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .left-column, .right-column {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 2rem;
+            padding: 20px 50px;
         }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #ff6f61, #ff9d41, #ffc600, #00a8ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+        .logo-container {
+            display: flex;
+            align-items: center;
         }
-
-        .subtitle {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            color: #555;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+        nav ul li {
+            margin-left: 20px;
+        }
+        nav ul li a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            cursor: pointer;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--black);
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 50px;
+            position: relative;
+        }
+        .content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .text-content {
+            flex: 1;
+            padding-right: 50px;
+        }
+        .text-content h2, .text-content h1 {
             position: relative;
             display: inline-block;
         }
-
-        .subtitle::before, .subtitle::after {
-            content: '✨';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.5rem;
-        }
-
-        .subtitle::before {
-            left: -2rem;
-        }
-
-        .subtitle::after {
-            right: -2rem;
-        }
-
-        .main-image {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .main-image:hover {
-            transform: scale(1.05) rotate(2deg);
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 300px;
-            margin-top: 2rem;
-        }
-
-        .cta-button, .how-to-use {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease-in-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button {
-            background: linear-gradient(90deg, #ff416c, #ff4b2b);
-            box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
-        }
-
-        .how-to-use {
-            background: linear-gradient(90deg, #00a8ff, #0077cc);
-            box-shadow: 0px 5px 15px rgba(0, 168, 255, 0.5);
-        }
-
-        .cta-button:hover, .how-to-use:hover {
-            transform: translateY(-3px);
-            box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .cta-button::before, .how-to-use::before {
+        .text-content h2::after, .text-content h1::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-            transition: all 0.3s ease-in-out;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--black);
+            transition: width 0.3s ease;
         }
-
-        .cta-button:hover::before, .how-to-use:hover::before {
-            top: -100%;
-            left: -100%;
+        .text-content h2:hover::after, .text-content h1:hover::after {
+            width: 100%;
         }
-
-        .team-odee {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 1rem;
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 4.5rem;
             font-weight: 700;
-            color: black;
-            text-transform: uppercase;
+            line-height: 1.2;
+            margin-bottom: 30px;
         }
-
+        .image-content {
+            flex: 1.2;
+            position: relative;
+        }
+        .image-slider {
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .image-slider:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        .slider-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slider-image.active {
+            opacity: 1;
+        }
+        .controls {
+            position: absolute;
+            left: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .control-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--black);
+            padding: 5px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .control-button:hover {
+            color: var(--white);
+            transform: scale(1.1);
+        }
+        .team-credits {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            font-size: 0.8rem;
+            text-align: left;
+            color: var(--black);
+        }
         .modal {
             display: none;
             position: fixed;
@@ -164,9 +182,8 @@
             justify-content: center;
             align-items: center;
         }
-
         .modal-content {
-            background-color: white;
+            background-color: var(--white);
             padding: 2rem;
             border-radius: 10px;
             width: 90%;
@@ -177,101 +194,193 @@
             position: relative;
             box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
         }
-
         .close-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #ff416c;
-            color: white;
+            background-color: var(--black);
+            color: var(--white);
             border: none;
             border-radius: 5px;
             cursor: pointer;
             padding: 0.5rem 1rem;
             transition: all 0.3s ease-in-out;
         }
-
         .close-btn:hover {
-            background-color: #ff1f4b;
+            background-color: #333;
         }
-
-        @media (max-width: 768px) {
-            .container {
+        .start-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--white);
+            background-color: var(--black);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background-color: #333;
+        }
+        @media (max-width: 1024px) {
+            .content {
                 flex-direction: column;
-                padding: 1rem;
+                text-align: center;
             }
-
-            .left-column, .right-column {
-                padding: 1rem;
+            .text-content {
+                padding-right: 0;
+                margin-bottom: 40px;
             }
-
             h1 {
-                font-size: 2.5rem;
+                font-size: 3.5rem;
             }
-
-            .subtitle {
-                font-size: 1.5rem;
+            .image-slider {
+                width: 100%;
+                padding-bottom: 75%;
             }
-
-            .main-image {
-                max-width: 90%;
+            .controls {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                transform: none;
+                margin-top: 20px;
             }
-
-            .cta-button, .how-to-use {
-                font-size: 1rem;
-                padding: 0.8rem;
+            .team-credits {
+                position: static;
+                margin-top: 20px;
+                padding-bottom: 20px;
+                padding-left: 20px;
+                text-align: left;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left-column">
-            <h1>Sketch 2 Dream</h1>
-            <p class="subtitle">"스케치를 예술로, 꿈을 현실로 ☁️"</p>
-            <img src="{{ url_for('static', filename='photos/turn-girl-stech-into-colorful-butterfly-drawing-with-fotor-ai-sketch-tool.webp') }}" alt="앱 설명 이미지" class="main-image">
+    <header>
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='photos/logo.png') }}" alt="Sketch2Dream Logo" class="logo">
+            </a>
         </div>
-        <div class="right-column">
-            <div class="button-container">
-                <button class="cta-button" onclick="startApp()">스케치 시작하기</button>
-                <button class="how-to-use" onclick="openModal()">How to Use</button>
+        <nav>
+            <ul>
+                <li><a onclick="openProjectModal()">About It?</a></li>
+                <li><a onclick="openHowToUseModal()">How To Use</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="content">
+            <div class="controls">
+                <button class="control-button prev">&lt;</button>
+                <button class="control-button next">&gt;</button>
+                <button class="control-button shuffle">⇄</button>
             </div>
+            <div class="text-content">
+                <h2>SKETCH TO DREAM</h2>
+                <h1>당신의 스케치,<br>우리의 기술로<br>현실이 됩니다</h1>
+                <a href="{{ url_for('canvas') }}" class="start-button">Let's Dream</a>
+            </div>
+            <div class="image-content">
+                <div class="image-slider">
+                    <img src="{{ url_for('static', filename='photos/main2.png') }}" alt="Sketch to Dream Example 2" class="slider-image">
+                    <img src="{{ url_for('static', filename='photos/turn-girl-stech-into-colorful-butterfly-drawing-with-fotor-ai-sketch-tool.webp') }}" alt="Sketch to Dream Example 1" class="slider-image">
+                    <img src="{{ url_for('static', filename='photos/main3.png') }}" alt="Sketch to Dream Example 2" class="slider-image">
+                </div>
+            </div>
+        </div>
+        <div class="team-credits">
+            [Electronics Engineering] • @Oseok • @GUN • @Dessert_gomjelly
+        </div>
+    </main>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <h2>What's the Project?</h2>
+            <p>Sketch2Dream은 사용자의 스케치를 AI 기술을 통해 실제 이미지로 변환하는 혁신적인 프로젝트입니다.
+            우리의 목표는 창의성의 경계를 넓히고, 상상을 현실로 만드는 것입니다.</p>
+            <p>이 프로젝트는 컴퓨터 비전, 머신 러닝, 그리고 사용자 경험 디자인의 최신 기술을 결합하여
+            사용자 친화적이면서도 강력한 도구를 제공합니다.</p>
+            <button class="close-btn" onclick="closeModal('projectModal')">닫기</button>
         </div>
     </div>
 
     <div id="howToUseModal" class="modal">
         <div class="modal-content">
-            <h2>How to Use</h2>
+            <h2>사용 방법</h2>
             <ol>
-                <li>📷 카메라를 보고 손가락을 이용해 그림을 그려주세요.</li>
-                <li>👆 그림을 다 그렸다면, 텍스트 입력 창에 그림에 대한 설명을 입력 해주세요.</li>
-                <li>✔️ 완료되면 "Save Canvas" 버튼을 눌러 저장할 수 있습니다.</li>
-                <li>🕶️ 이제 그림이 실제 이미지로 변환됩니다.</li>
+                <li>카메라를 보고 손가락을 이용해 그림을 그려주세요.</li>
+                <li>그림을 다 그렸다면, 텍스트 입력 창에 그림에 대한 설명을 입력해주세요.</li>
+                <li>완료되면 "Save Canvas" 버튼을 눌러 저장할 수 있습니다.</li>
+                <li>이제 그림이 실제 이미지로 변환됩니다.</li>
             </ol>
             <h3>당신의 꿈을 실현시키세요.</h3>
-            <button class="close-btn" onclick="closeModal()">Close</button>
+            <button class="close-btn" onclick="closeModal('howToUseModal')">닫기</button>
         </div>
     </div>
 
-    <div class="team-odee">Team ODEE</div>
-
     <script>
-        function startApp() {
-            alert("앱이 곧 시작됩니다!");
-            window.location.href = "/canvas";
+        const images = document.querySelectorAll('.slider-image');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const shuffleBtn = document.querySelector('.shuffle');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            images.forEach(img => img.classList.remove('active'));
+            images[index].classList.add('active');
         }
 
-        function openModal() {
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        }
+
+        function shuffleImages() {
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * images.length);
+            } while (newIndex === currentIndex);
+            currentIndex = newIndex;
+            showImage(currentIndex);
+        }
+
+        prevBtn.addEventListener('click', prevImage);
+        nextBtn.addEventListener('click', nextImage);
+        shuffleBtn.addEventListener('click', shuffleImages);
+
+        showImage(currentIndex);
+        setInterval(nextImage, 5000);
+
+        function openProjectModal() {
+            document.getElementById("projectModal").style.display = "flex";
+        }
+
+        function openHowToUseModal() {
             document.getElementById("howToUseModal").style.display = "flex";
         }
 
-        function closeModal() {
-            document.getElementById("howToUseModal").style.display = "none";
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
         }
 
+        // 키보드 단축키
         window.addEventListener("keydown", function(event) {
             if (event.key === "Escape") {
-                closeModal();
+                closeModal('howToUseModal');
+                closeModal('projectModal');
             }
         });
     </script>
