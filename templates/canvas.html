@@ -232,6 +232,21 @@
                 text-align: left;
             }
         }
+
+        .style-container {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .style-container label {
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .style-container input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -264,6 +279,19 @@
         <div class="input-container">
             <img src="{{ url_for('static', filename='photos/how.png') }}" alt="사용 방법" class="how-to-image">
             <input type="text" id="userText" placeholder="어떤 그림인지 입력하세요">
+        </div>
+
+        <!-- 화풍 선택 라디오 버튼 추가 -->
+        <div class="style-container">
+            <label>
+                <input type="radio" name="style" value="photo" checked> 실제처럼
+            </label>
+            <label>
+                <input type="radio" name="style" value="drawing"> 그림처럼
+            </label>
+            <label>
+                <input type="radio" name="style" value="anime"> 캐릭터
+            </label>
         </div>
 
         <button class="cta-button" onclick="saveCanvas()">Save Canvas</button>
@@ -304,7 +332,7 @@
     </div>
 
     <script>
-        const BACKEND_URL = 'https://f495-34-147-64-18.ngrok-free.app';
+        const BACKEND_URL = 'https://c603-34-141-163-175.ngrok-free.app';
 
         function showLoading() {
             document.getElementById('loadingOverlay').style.display = 'flex';
@@ -319,6 +347,8 @@
             const imgElement = document.getElementById('canvasFeed');
             const canvas = document.getElementById('hiddenCanvas');
             const context = canvas.getContext('2d');
+            // 선택된 화풍 가져오기
+            const selectedStyle = document.querySelector('input[name="style"]:checked').value;
 
             canvas.width = imgElement.width;
             canvas.height = imgElement.height;
@@ -332,6 +362,8 @@
                 const formData = new FormData();
                 formData.append('text', userText);
                 formData.append('image', blob, 'canvas_image.jpg');
+                // 선택된 화풍을 FormData에 추가
+                formData.append('style', selectedStyle);
 
                 const response = await fetch(`${BACKEND_URL}/process_image`, {
                     method: 'POST',
@@ -351,9 +383,15 @@
 
                 const imageInput = document.createElement('input');
                 imageInput.type = 'hidden';
-                imageInput.name = 'image_url';
-                imageInput.value = data.image_url;
+                imageInput.name = 'input_image_url';  // 원본 이미지 URL 필드
+                imageInput.value = data.input_image_url;  // 서버에서 반환된 원본 이미지 URL
                 form.appendChild(imageInput);
+
+                const imageOutput = document.createElement('input');
+                imageOutput.type = 'hidden';
+                imageOutput.name = 'result_image_url';  // 변환된 이미지 URL 필드
+                imageOutput.value = data.result_image_url;  // 서버에서 반환된 변환된 이미지 URL
+                form.appendChild(imageOutput);
 
                 const textInput = document.createElement('input');
                 textInput.type = 'hidden';
@@ -402,3 +440,5 @@
     </script>
 </body>
 </html>
+
+
