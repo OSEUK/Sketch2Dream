@@ -1,188 +1,231 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sketch 2 Dream</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Sketch 2 Dream - Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-      body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background-color: #f0f4f8;
-        color: #333;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        flex-direction: column;
-        text-align: center;
-        overflow: hidden;
-        position: relative;
-      }
-
-      body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(120deg, rgba(255, 111, 97, 0.2), rgba(0, 168, 255, 0.2));
-        clip-path: circle(30% at right 70%);
-        animation: moveBackground 6s infinite alternate;
-        z-index: -1;
-      }
-
-      @keyframes moveBackground {
-        0% {
-          clip-path: circle(30% at right 70%);
+        :root {
+            --greenery: #B8D492;
+            --dark-green: #5D8233;
+            --black: #000000;
+            --white: #FFFFFF;
         }
-        100% {
-          clip-path: circle(50% at left 30%);
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--greenery);
+            color: var(--black);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-      }
-
-      h1 {
-        font-size: 4rem;
-        font-weight: 900;
-        background: linear-gradient(90deg, #ff6f61, #ff9d41, #ffc600, #00a8ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.5rem;
-        letter-spacing: 2px;
-        animation: fadeInDown 1s ease-in-out;
-        text-transform: uppercase;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-      }
-
-      /* Dream Result 텍스트에 그림자 이동 애니메이션 */
-      h2 {
-        font-size: 4rem;
-        font-weight: 900;
-        color: #ff416c;
-        margin-bottom: 2rem;
-        text-transform: uppercase;
-        letter-spacing: 5px;
-        position: relative;
-        display: inline-block;
-        animation: shadowMove 3s infinite ease-in-out;
-      }
-
-      @keyframes shadowMove {
-        0% { text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); }
-        50% { text-shadow: 6px 6px 16px rgba(0, 0, 0, 0.4); }
-        100% { text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); }
-      }
-
-      h2::after {
-        content: '☁️';
-        font-size: 3rem;
-        color: #ffc600;
-        position: absolute;
-        top: -40px;
-        right: -50px;
-        animation: floatCloud 4s ease-in-out infinite;
-      }
-
-      @keyframes floatCloud {
-        0% {
-          transform: translateY(0);
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
         }
-        50% {
-          transform: translateY(-10px);
+        .logo-container {
+            display: flex;
+            align-items: center;
         }
-        100% {
-          transform: translateY(0);
+        .logo {
+            height: 60px;
+            width: auto;
         }
-      }
-
-      p {
-        font-size: 1.5rem;
-        color: #555;
-        font-weight: 600;
-        animation: fadeInUp 1.2s ease-in-out;
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      img {
-        max-width: 80%;
-        height: auto;
-        margin-bottom: 2rem;
-        border-radius: 15px;
-        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease-in-out;
-      }
-
-      img:hover {
-        transform: scale(1.08);
-      }
-
-      /* Team ODEE 스타일 (심플하고 검정색으로) */
-      .team-odee {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        font-size: 2rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: black;
-      }
-
-      @media (max-width: 768px) {
-        h1 {
-          font-size: 3rem;
+        .top-nav {
+            display: flex;
         }
-        h2 {
-          font-size: 2.5rem;
+        .top-nav-button {
+            margin-left: 20px;
+            padding: 10px 0;
+            background-color: transparent;
+            color: var(--black);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
         }
-        h2::after {
-          font-size: 2.5rem;
-          top: -20px;
-          right: -30px;
+        .top-nav-button:hover {
+            opacity: 0.7;
         }
-        p {
-          font-size: 1.2rem;
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 50px 50px 0;
+            position: relative;
         }
-        img {
-          max-width: 100%;
+        .dream-text {
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 1200px;
+            text-align: left;
+            padding-left: 10px;
         }
-        .team-odee {
-          font-size: 1rem;
-          bottom: 10px;
-          right: 10px;
+        .dream-text .outline {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--black);
         }
-      }
+        .dream-text .filled {
+            color: var(--dark-green);
+        }
+        .result-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .image-container {
+            width: 45%;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            margin: 0 10px;
+            position: relative;
+        }
+        .image-container:hover {
+            transform: scale(1.05);
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .hashtag-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(184, 212, 146, 0.5);
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--black);
+            z-index: 10;
+        }
+        .hashtag-icon {
+            margin-right: 5px;
+            color: #4CAF50;
+        }
+        .hashtag-text {
+            font-weight: bold;
+        }
+        .side-nav {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+        }
+        .side-nav-button {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            transition: opacity 0.3s ease;
+            color: var(--black);
+        }
+        .side-nav-button:hover {
+            opacity: 0.7;
+        }
+        .team-credits {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            font-size: 0.8rem;
+            color: var(--black);
+        }
+        @media (max-width: 1024px) {
+            .dream-text {
+                font-size: 3rem;
+                padding-left: 5px;
+            }
+            .result-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .image-container {
+                width: 90%;
+                margin-bottom: 1rem;
+            }
+            .side-nav {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                transform: none;
+                margin-top: 1rem;
+            }
+            .side-nav-button {
+                margin: 0 10px;
+            }
+            .team-credits {
+                position: static;
+                text-align: center;
+                margin-top: 1rem;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <!-- 앱 타이틀 -->
-    <h1>Sketch 2 Dream</h1>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='photos/logo.png') }}" alt="Sketch2Dream Logo" class="logo">
+        </div>
+        <div class="top-nav">
+            <button class="top-nav-button" onclick="location.href='canvas'">REDRAW</button>
+            <button class="top-nav-button" onclick="location.href='/'">HOME</button>
+        </div>
+    </header>
 
-    <!-- Dream Result 제목 -->
-    <h2>결과 이미지</h2>
+    <main>
+        <div class="dream-text">
+            <span class="outline">YOUR</span> <span class="filled">DREAM</span>
+        </div>
+        <div class="result-container">
+            <div class="image-container">
+                <div class="hashtag-container">
+                    <i class="fas fa-hashtag hashtag-icon"></i>
+                    <span class="hashtag-text" id="userText"></span>
+                </div>
+                <img src="{{ input_image_url }}" alt="Your Sketch" id="inputImage">
+            </div>
+            <div class="image-container">
+                <img src="{{ result_image_url }}" alt="AI Magic" id="outputImage">
+            </div>
+        </div>
+        <div class="side-nav">
+            <button class="side-nav-button" onclick="location.href='canvas'" title="Redraw"><i class="fas fa-pencil-alt"></i></button>
+            <button class="side-nav-button" onclick="location.href='/'" title="Home"><i class="fas fa-home"></i></button>
+        </div>
+    </main>
 
-    <div id="result"></div>
-
-    <!-- Team ODEE 표시 -->
-    <div class="team-odee">Team ODEE</div>
+    <div class="team-credits">
+        [Electronics Engineering] • @Oseok • @GUN • @Dessert_gomjelly
+    </div>
 
     <script>
-        // Flask에서 받은 데이터, Jinja 템플릿을 통해 전달
-        const imageUrl = "{{ image_url }}";  // Flask에서 전달된 이미지 URL
-        const userText = "{{ text }}";  // Flask에서 전달된 텍스트
-
-        // 오류가 있다면 처리 (만약 Flask에서 오류 메시지가 전달된다면)
-        const error = "{{ error }}";  // 오류 메시지가 있을 경우 처리
-
-        if (error) {
-          document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${decodeURIComponent(error)}</p>`;
-        } else {
-          document.getElementById('result').innerHTML = `
-            <img src="${imageUrl}" alt="Generated Image" style="max-width: 100%; height: auto;">
-            <p>Text: ${decodeURIComponent(userText)}</p>
-          `;
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const userText = "{{ text }}";
+            document.getElementById('userText').textContent = decodeURIComponent(userText);
+        });
     </script>
-  </body>
+</body>
 </html>
