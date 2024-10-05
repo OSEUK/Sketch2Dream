@@ -195,6 +195,14 @@
             justify-content: center;
             align-items: center;
         }
+
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
         .loading-spinner {
             width: 50px;
             height: 50px;
@@ -203,10 +211,12 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+
         .loading-text {
             color: var(--white);
             font-size: 1.2rem;
             font-weight: bold;
+            margin-top: 10px; /* 원과 텍스트 사이의 간격 조정 */
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -366,12 +376,14 @@
     </div>
 
     <div id="loadingOverlay" class="loading-overlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">생성 중입니다...</div>
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">생성 중입니다...</div>
+        </div>
     </div>
 
     <script>
-        const BACKEND_URL = 'https://c603-34-141-163-175.ngrok-free.app';
+        const BACKEND_URL = 'https://fc1e-34-90-152-36.ngrok-free.app';
 
         function showLoading() {
             document.getElementById('loadingOverlay').style.display = 'flex';
