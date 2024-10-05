@@ -71,20 +71,27 @@
             padding: 0 50px;
             position: relative;
         }
-        .feed-container {
+        .content-container {
             display: flex;
             justify-content: space-between;
             width: 100%;
             max-width: 1200px;
             margin-bottom: 2rem;
         }
-        .feed {
+        .feed-container {
             width: 48%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .feed {
+            width: 100%;
             background-color: var(--white);
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             transition: transform 0.3s ease;
+            margin-bottom: 1rem;
         }
         .feed:hover {
             transform: scale(1.05);
@@ -96,23 +103,23 @@
         }
         .input-container {
             width: 100%;
-            max-width: 500px;
-            margin-bottom: 2rem;
             display: flex;
+            flex-direction: column;
             align-items: center;
         }
         .how-to-image {
             width: 330px;
             height: 130px;
-            margin-right: 10px;
+            margin-bottom: 10px;
         }
         input[type="text"] {
-            flex-grow: 1;
+            width: 80%;
             padding: 0.75rem;
             font-size: 1rem;
             border: 2px solid var(--black);
             border-radius: 6px;
             transition: border-color 0.3s, box-shadow 0.3s;
+            margin-bottom: 1rem;
         }
         input[type="text"]:focus {
             border-color: var(--black);
@@ -131,6 +138,7 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            align-self: center;
         }
         .cta-button:hover {
             transform: translateY(-3px);
@@ -212,11 +220,44 @@
             text-align: left;
             color: var(--black);
         }
+        .style-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+        .style-option {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        .style-option input[type="radio"] {
+            display: none;
+        }
+        .style-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .style-option label:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        .style-option input[type="radio"]:checked + label {
+            background-color: var(--black);
+            color: var(--white);
+        }
+        .style-icon {
+            font-size: 20px;
+            margin-right: 5px;
+        }
         @media (max-width: 1024px) {
-            .feed-container {
+            .content-container {
                 flex-direction: column;
             }
-            .feed {
+            .feed-container {
                 width: 100%;
                 margin-bottom: 1rem;
             }
@@ -231,21 +272,6 @@
                 padding-left: 20px;
                 text-align: left;
             }
-        }
-
-        .style-container {
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-        }
-
-        .style-container label {
-            margin-right: 20px;
-            cursor: pointer;
-        }
-
-        .style-container input[type="radio"] {
-            margin-right: 10px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -265,33 +291,46 @@
     </header>
 
     <main>
-        <div class="feed-container">
-            <div class="feed">
-                <img src="{{ url_for('webcam_feed_route') }}" alt="실시간 카메라" loading="lazy">
+        <div class="content-container">
+            <div class="feed-container">
+                <div class="feed">
+                    <img src="{{ url_for('webcam_feed_route') }}" alt="실시간 카메라" loading="lazy">
+                </div>
+                <img src="{{ url_for('static', filename='photos/how.png') }}" alt="사용 방법" class="how-to-image">
             </div>
 
-            <div class="feed">
-                <img src="{{ url_for('canvas_feed_route') }}" id="canvasFeed" alt="스케치 캔버스" loading="lazy">
-                <canvas id="hiddenCanvas" style="display:none;"></canvas>
+            <div class="feed-container">
+                <div class="feed">
+                    <img src="{{ url_for('canvas_feed_route') }}" id="canvasFeed" alt="스케치 캔버스" loading="lazy">
+                    <canvas id="hiddenCanvas" style="display:none;"></canvas>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="userText" placeholder="어떤 그림인지 입력하세요">
+                    <div class="style-container">
+                        <div class="style-option">
+                            <input type="radio" id="photo" name="style" value="photo" checked>
+                            <label for="photo">
+                                <span class="style-icon">📷</span>
+                                Realistic
+                            </label>
+                        </div>
+                        <div class="style-option">
+                            <input type="radio" id="drawing" name="style" value="drawing">
+                            <label for="drawing">
+                                <span class="style-icon">🎨</span>
+                                Artistic
+                            </label>
+                        </div>
+                        <div class="style-option">
+                            <input type="radio" id="anime" name="style" value="anime">
+                            <label for="anime">
+                                <span class="style-icon">👾</span>
+                                Character
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="input-container">
-            <img src="{{ url_for('static', filename='photos/how.png') }}" alt="사용 방법" class="how-to-image">
-            <input type="text" id="userText" placeholder="어떤 그림인지 입력하세요">
-        </div>
-
-        <!-- 화풍 선택 라디오 버튼 추가 -->
-        <div class="style-container">
-            <label>
-                <input type="radio" name="style" value="photo" checked> 실제처럼
-            </label>
-            <label>
-                <input type="radio" name="style" value="drawing"> 그림처럼
-            </label>
-            <label>
-                <input type="radio" name="style" value="anime"> 캐릭터
-            </label>
         </div>
 
         <button class="cta-button" onclick="saveCanvas()">Save Canvas</button>
